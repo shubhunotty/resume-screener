@@ -11,7 +11,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchCount = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/resume/summary');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/resume/summary`);
         setCount(res.data.totalCount || 0);
       } catch (err) {
         console.error('Failed to fetch resume count:', err);

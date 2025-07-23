@@ -11,7 +11,7 @@ const Dashboard = () => {
     const fetchSummary = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/resume/summary');
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/resume/summary`);
         setSummary(res.data);
       } catch (err) {
         console.error('Failed to load summary:', err);
