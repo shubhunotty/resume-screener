@@ -8,9 +8,7 @@ const ResumeList = () => {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   const API_URL = process.env.REACT_APP_API_URL;
-
   const { refreshToken, triggerRefresh } = useRefresh();
-
 
   const fetchResumes = async () => {
     try {
@@ -28,7 +26,6 @@ const ResumeList = () => {
     fetchResumes();
   }, [refreshToken]);
 
-  // Scroll-to-top logic
   useEffect(() => {
     const handleScroll = () => {
       setShowTopBtn(window.scrollY > 300);
@@ -42,15 +39,15 @@ const ResumeList = () => {
   };
 
   const handleDelete = async (id) => {
-  if (window.confirm("Delete this resume?")) {
-    try {
-      await axios.delete(`${API_URL}/api/resume/${id}`);
-      triggerRefresh(); // 🔁 auto-refresh ResumeList, Dashboard, Navbar
-    } catch (err) {
-      console.error('Delete failed:', err);
+    if (window.confirm("Delete this resume?")) {
+      try {
+        await axios.delete(`${API_URL}/api/resume/${id}`);
+        triggerRefresh();
+      } catch (err) {
+        console.error('Delete failed:', err);
+      }
     }
-  }
-};
+  };
 
   const handleSave = async (id, notes, tags) => {
     try {
