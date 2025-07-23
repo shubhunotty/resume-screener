@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useRefresh } from '../context/RefreshContext';
 
@@ -10,7 +10,7 @@ const ResumeList = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const { refreshToken, triggerRefresh } = useRefresh();
 
-  const fetchResumes = async () => {
+  const fetchResumes = useCallback(async () => {
     try {
       setLoading(true);
       const res = await axios.get(`${API_URL}/api/resume/all`);
@@ -20,16 +20,14 @@ const ResumeList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
 
   useEffect(() => {
     fetchResumes();
-  }, [refreshToken]);
+  }, [fetchResumes, refreshToken]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowTopBtn(window.scrollY > 300);
-    };
+    const handleScroll = () => setShowTopBtn(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
