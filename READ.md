@@ -2,6 +2,8 @@
 
 This is a full stack Resume Screener tool built using React, Node.js, Express, and MongoDB.
 
+![CI](https://github.com/shubhu1414/resume-screener/actions/workflows/ci.yml/badge.svg)
+
 ## Structure
 - `client/` – React + Tailwind frontend
 - `server/` – Express backend API
