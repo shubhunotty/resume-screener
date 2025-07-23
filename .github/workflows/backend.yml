@@ -1,0 +1,30 @@
+name: Node Backend CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend-check:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: resume-screener-server
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      # Optional: If you have a test script or linting
+      # - name: Run tests
+      #   run: npm test
