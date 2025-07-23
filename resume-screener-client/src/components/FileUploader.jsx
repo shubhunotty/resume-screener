@@ -4,6 +4,8 @@ import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { useRefresh } from '../context/RefreshContext';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const FileUploader = () => {
   const [uploadStatus, setUploadStatus] = useState('');
   const [parsedData, setParsedData] = useState(null);
@@ -18,7 +20,7 @@ const FileUploader = () => {
     try {
       setLoading(true);
       setUploadStatus('');
-      const response = await axios.post('http://localhost:5000/api/resume/parse', formData);
+      const response = await axios.post(`${API_URL}/api/resume/parse`, formData);
       setParsedData(response.data.extracted);
       setUploadStatus('✅ Upload & Parsing successful!');
       triggerRefresh();

@@ -7,13 +7,15 @@ const ResumeList = () => {
   const [loading, setLoading] = useState(true);
   const [showTopBtn, setShowTopBtn] = useState(false);
 
-  const { refreshToken, triggerRefresh } = useRefresh(); // ✅ fixed
+  const API_URL = process.env.REACT_APP_API_URL;
+
+  const { refreshToken, triggerRefresh } = useRefresh();
 
 
   const fetchResumes = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/resume/all`);
+      const res = await axios.get(`${API_URL}/api/resume/all`);
       setResumes(res.data.resumes);
     } catch (err) {
       console.error('Failed to load resumes:', err);
@@ -42,7 +44,7 @@ const ResumeList = () => {
   const handleDelete = async (id) => {
   if (window.confirm("Delete this resume?")) {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/resume/${id}`);
+      await axios.delete(`${API_URL}/api/resume/${id}`);
       triggerRefresh(); // 🔁 auto-refresh ResumeList, Dashboard, Navbar
     } catch (err) {
       console.error('Delete failed:', err);
@@ -52,7 +54,7 @@ const ResumeList = () => {
 
   const handleSave = async (id, notes, tags) => {
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}/api/resume/${id}`, { notes, tags });
+      await axios.put(`${API_URL}/api/resume/${id}`, { notes, tags });
       fetchResumes();
     } catch (err) {
       console.error('Save failed:', err);
