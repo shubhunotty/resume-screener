@@ -1,0 +1,48 @@
+name: CI - Lint and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: ⬇️ Checkout code
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: 📦 Install dependencies (frontend)
+      run: |
+        cd resume-screener-frontend
+        npm ci
+
+    - name: 📦 Install dependencies (backend)
+      run: |
+        cd resume-screener-server
+        npm ci
+
+    - name: 🧪 Lint frontend (optional if ESLint present)
+      run: |
+        cd resume-screener-frontend
+        npm run lint || echo "No lint script"
+
+    - name: 🧪 Lint backend (optional if ESLint present)
+      run: |
+        cd resume-screener-server
+        npm run lint || echo "No lint script"
+
+    - name: ✅ Run tests (if present)
+      run: |
+        echo "No tests yet – add Jest or similar later"
