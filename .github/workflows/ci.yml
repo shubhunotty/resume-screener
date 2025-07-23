@@ -25,7 +25,7 @@ jobs:
 
     - name: 📦 Install dependencies (frontend)
       run: |
-        cd resume-screener-frontend
+        cd resume-screener-client
         npm ci
 
     - name: 📦 Install dependencies (backend)
@@ -35,7 +35,7 @@ jobs:
 
     - name: 🧪 Lint frontend (optional if ESLint present)
       run: |
-        cd resume-screener-frontend
+        cd resume-screener-client
         npm run lint || echo "No lint script"
 
     - name: 🧪 Lint backend (optional if ESLint present)
@@ -45,7 +45,7 @@ jobs:
 
     - name: ✅ Run tests (if present)
       run: |
-        cd resume-screener-frontend
+        cd resume-screener-client
         npm test -- --watchAll=false || echo "Frontend test failed or missing"
 
         cd ../resume-screener-server
